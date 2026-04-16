@@ -55,7 +55,7 @@ export const uploadLogo = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(400, 'Please upload a logo image');
   }
 
-  const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  const fileUrl = `${req.protocol}://${req.get('host')}/uploads/images/${req.file.filename}`;
   
   res.json(ApiResponse.success({ url: fileUrl }, 'Logo uploaded successfully'));
 });
