@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import pool from '../config/db.js';
 import { ApiResponse, ApiError } from '../utils/ApiResponse.js';
 
+import { formatDataUrls } from '../utils/urlHelper.js';
+
 const asyncHandler = (fn: Function) => (req: Request, res: Response, next: NextFunction) => {
   Promise.resolve(fn(req, res, next)).catch(next);
 };
@@ -24,9 +26,12 @@ export const getAllSettings = asyncHandler(async (req: Request, res: Response) =
     settingsMap[row.key_name] = value;
   });
 
+  const formattedRows = formatDataUrls(rows);
+  const formattedMap = formatDataUrls(settingsMap);
+
   res.json(ApiResponse.success({
-    list: rows,
-    map: settingsMap
+    list: formattedRows,
+    map: formattedMap
   }, 'Settings fetched successfully'));
 });
 
