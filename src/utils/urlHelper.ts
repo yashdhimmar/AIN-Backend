@@ -41,7 +41,10 @@ export const formatDataUrls = (data: any): any => {
         key.toLowerCase().includes('document') || 
         key.toLowerCase().includes('file') ||
         key.toLowerCase().includes('url') ||
-        value.startsWith('/uploads/')
+        key.toLowerCase().includes('logo') ||
+        key.toLowerCase().includes('icon') ||
+        value.includes('/uploads/') ||
+        value.includes('localhost:5001')
       )) {
         formatted[key] = formatFileUrl(value);
       } else if (typeof value === 'object') {
